@@ -133,7 +133,7 @@ macro( coolfluid3_add_library )
         endif()
 
         # add the library target
-        add_library( ${_PAR_TARGET} ${_PAR_TYPE} ${_PAR_SOURCES} ${_gen_MOC} ${_PAR_RCC} )
+        add_library(${_PAR_TARGET} ${_PAR_TYPE} ${_PAR_SOURCES} ${_gen_MOC} ${_PAR_RCC})
 
         set_target_properties( ${_PAR_TARGET} PROPERTIES LINK_FLAGS "${CF3_LIBRARY_LINK_FLAGS}" )
         set_target_properties( ${_PAR_TARGET} PROPERTIES DEFINE_SYMBOL ${LIBNAME_CAPS}_EXPORTS )
@@ -218,13 +218,13 @@ macro( coolfluid3_add_library )
             set_property( TARGET ${_PAR_TARGET} PROPERTY LINKER_LANGUAGE ${_PAR_LINKER_LANGUAGE} )
         endif()
 
+        get_target_property( ${LIBNAME}_LINK_LIBRARIES  ${LIBNAME} LINK_LIBRARIES )
     endif()
 
   set( ${LIBNAME}_includedirs ${${LIBNAME}_includedirs} CACHE INTERNAL "" )
 
   # log some info about the library
 
-  get_target_property( ${LIBNAME}_LINK_LIBRARIES  ${LIBNAME} LINK_LIBRARIES )
 
   coolfluid_log_file("${LIBNAME} user option     : [${CF3_BUILD_${LIBNAME}}]")
   coolfluid_log_file("${LIBNAME}_builds          : [${${LIBNAME}_builds}]")

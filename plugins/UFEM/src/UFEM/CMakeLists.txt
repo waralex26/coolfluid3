@@ -36,8 +36,14 @@ list( APPEND coolfluid_ufem_files
   BCWallEpsilonABL.cpp
   BCWallFunctionABL.hpp
   BCWallFunctionABL.cpp
+  BCWallFunctionABLGoit.hpp
+  BCWallFunctionABLGoit.cpp
+  BCWallFunctionABLGoitSI.hpp
+  BCWallFunctionABLGoitSI.cpp
   BCWallFunctionNSImplicit.hpp
   BCWallFunctionNSImplicit.cpp
+  BodyForceControl.cpp
+  BodyForceControl.hpp
   BoundaryConditions.hpp
   BoundaryConditions.cpp
   BoussinesqConcentration.hpp
@@ -106,6 +112,8 @@ list( APPEND coolfluid_ufem_files
   ParsedFunctionExpression.cpp
   PressureGradient.hpp
   PressureGradient.cpp
+  PressureNormalization.hpp
+  PressureNormalization.cpp
   ScalarAdvection.cpp
   ScalarAdvection.hpp
   ScalarAdvectionCoupling.cpp
