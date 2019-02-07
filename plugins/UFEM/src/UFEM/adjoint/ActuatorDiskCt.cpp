@@ -86,11 +86,6 @@ ActuatorDiskCt::ActuatorDiskCt(const std::string& name) :
       .description("Result of the integration (read-only)")
       .mark_basic();
 
-  options().add("a", m_force_a)
-    .pretty_name("Force_a")
-    .description("Force a value for a")
-    .link_to(&m_force_a)
-    .mark_basic();
   
   // The component that  will set the force
   create_static_component<ProtoAction>("SetForce")->options().option("regions").add_tag("norecurse");
@@ -140,26 +135,9 @@ void ActuatorDiskCt::execute()
   surface_integral(m_u_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[1]}), _abs((u*normal)[0]));
 
   m_u_mean_disk /= m_area;
-  if (m_force_a < 0.0)
-  {
-    if(m_ct<0)
-    {
-      m_a = (0.0000000001445*std::pow(m_u_mean_disk, 9))-(0.000000019961*std::pow(m_u_mean_disk, 8))+(0.000001186*std::pow(m_u_mean_disk, 7))
-    - (0.000039578*std::pow(m_u_mean_disk, 6))+(0.0008127*std::pow(m_u_mean_disk, 5))-(0.010591*std::pow(m_u_mean_disk, 4))+(0.08739*m_u_mean_disk*m_u_mean_disk*m_u_mean_disk)+(-0.44331*m_u_mean_disk*m_u_mean_disk)+(1.2751*m_u_mean_disk)-1.4627;
-    } 
-    else
-    {
-      m_a = (1-std::sqrt(1-m_ct))/2;	
-    }
-  }
-  else if (m_force_a >= 0)
-  {
-    m_a = m_force_a;
-  }
-  //const Real a = (-0.00000000012263*std::pow(m_u_in, 9))+(0.000000013959*std::pow(m_u_in, 8))+(-0.00000064771*std::pow(m_u_in, 7))
-   //+ (0.000015459*std::pow(m_u_in, 6))+(-0.00019067*std::pow(m_u_in, 5))+(0.00084845*std::pow(m_u_in, 4))+(0.0062973*m_u_in*m_u_in*m_u_in)+(-0.099681*m_u_in*m_u_in)+(0.49009*m_u_in)-0.74874;
+
   m_f = -0.5 * m_ct * m_u_mean_disk * m_u_mean_disk / m_th;//(m_dt * m_u_mean_disk);
-  CFinfo << std::setprecision(20) <<"force set to " << m_f << ", a: " << m_a << "m_u_mean_disk :" << m_u_mean_disk <<  " pow2 " << m_u_mean_disk2 << " pow3 " << m_u_mean_disk3 << CFendl;
+  // CFinfo << std::setprecision(20) <<"force set to " << m_f << ", a: " << m_a << "m_u_mean_disk :" << m_u_mean_disk <<  " pow2 " << m_u_mean_disk2 << " pow3 " << m_u_mean_disk3 << CFendl;
   options().set("result", m_u_mean_disk);
   Handle<ProtoAction> set_force(get_child("SetForce"));
   set_force->execute();
