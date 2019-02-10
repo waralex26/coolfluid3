@@ -44,6 +44,7 @@ using namespace solver::actions;
 using namespace solver::actions::Proto;
 using boost::proto::lit;
 
+
 ComponentBuilder < AdjointCt, LSSActionUnsteady, LibUFEMAdjointCt > AdjointCt_Builder;
 
 AdjointCt::AdjointCt(const std::string& name) :
