@@ -183,7 +183,7 @@ void DirectDifferentiationCt::trigger_assembly()
       boost::mpl::vector</*mesh::LagrangeP1::Triag3D, */mesh::LagrangeP1::Line2D>(),
       group
       (
-        /*_A = _0,*/ _a[SensU] = _0, _a[SensP] = _0,
+        _A(SensU) = _0, _A(SensP) = _0, _a[SensU] = _0, _a[SensP] = _0,
         //compute_tau.apply(u, nu_eff, lit(dt()), lit(tau_ps), lit(tau_su), lit(tau_bulk)),
         element_quadrature
         (
