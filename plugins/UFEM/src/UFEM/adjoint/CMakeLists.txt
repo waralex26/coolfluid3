@@ -22,6 +22,8 @@ coolfluid3_add_library(TARGET coolfluid_ufem_adjoint
     BCAdjointpressurez.cpp
     DirectDifferentiation.hpp
     DirectDifferentiation.cpp
+    DirectDifferentiationCt.hpp
+    DirectDifferentiationCt.cpp
     DirectDifferentiationSensitivityDisk.cpp
     DirectDifferentiationSensitivityDisk.hpp
     keAdjoint.cpp
