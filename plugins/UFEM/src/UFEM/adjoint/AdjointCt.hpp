@@ -19,7 +19,7 @@
 
 #include <boost/scoped_ptr.hpp>
 
-#include "LibUFEMAdjointCt.hpp"
+#include "LibUFEMAdjoint.hpp"
 #include "../LSSActionUnsteady.hpp"
 #include "../NavierStokesPhysics.hpp"
 #include "../SUPG.hpp"
