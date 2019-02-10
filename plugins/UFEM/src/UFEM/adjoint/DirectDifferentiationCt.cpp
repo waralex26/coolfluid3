@@ -187,7 +187,7 @@ void DirectDifferentiationCt::trigger_assembly()
         //compute_tau.apply(u, nu_eff, lit(dt()), lit(tau_ps), lit(tau_su), lit(tau_bulk)),
         element_quadrature
         (
-            _a[U[_i]] += - transpose(N(SensU)) * lit(0.5) * u[0] * u[0] / lit(m_th) 
+            _a[U[_i]] += - transpose(N(SensU)) * lit(0.5) * u[0] * u[0] / lit(m_th) * normal[_i]
         ),
         // element_quadrature(_A(SensU[_i], SensU[_i]) += transpose(N(SensU))*N(SensU)*u[_i]* lit(4) * lit(m_a[Nt])/(lit(1)-lit(m_a[Nt]))/ lit(m_th)*density_ratio * normal[_i]), // integrate
         system_rhs += _a
