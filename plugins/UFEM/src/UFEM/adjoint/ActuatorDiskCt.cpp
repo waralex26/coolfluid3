@@ -142,6 +142,7 @@ void ActuatorDiskCt::trigger_setup()
       uDisk = lit(m_u_mean_disk)
     )
   ));
+  set_ct->execute();
 }
 
 void ActuatorDiskCt::execute()
@@ -163,7 +164,9 @@ void ActuatorDiskCt::execute()
   // CFinfo << std::setprecision(20) <<"force set to " << m_f << ", a: " << m_a << "m_u_mean_disk :" << m_u_mean_disk <<  " pow2 " << m_u_mean_disk2 << " pow3 " << m_u_mean_disk3 << CFendl;
   options().set("result", m_u_mean_disk);
   Handle<ProtoAction> set_force(get_child("SetForce"));
+  Handle<ProtoAction> set_uDisk(get_child("SetuDisk"));
   set_force->execute();
+  set_uDisk->execute();
 }
 
 } // namespace adjoint
