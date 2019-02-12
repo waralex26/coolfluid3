@@ -56,7 +56,9 @@ ActuatorDiskCt::ActuatorDiskCt(const std::string& name) :
   rhs(options().add("lss", Handle<math::LSS::System>())
     .pretty_name("LSS")
     .description("The linear system for which the boundary condition is applied")),
-  system_matrix(options().option("lss"))
+  system_matrix(options().option("lss")),
+  Ct("ThrustCoefficient", "actuator_disk"),
+  uDisk("MeanDiskSpeed", "actuator_disk")
 {
   options().add("u_in", m_u_in)
     .pretty_name("Velocityin")
@@ -89,6 +91,8 @@ ActuatorDiskCt::ActuatorDiskCt(const std::string& name) :
   
   // The component that  will set the force
   create_static_component<ProtoAction>("SetForce")->options().option("regions").add_tag("norecurse");
+  create_static_component<ProtoAction>("SetCt")->options().option("regions").add_tag("norecurse");
+  create_static_component<ProtoAction>("SetuDisk")->options().option("regions").add_tag("norecurse");
 
   // Initialize the expression
   trigger_setup();
@@ -104,6 +108,8 @@ void ActuatorDiskCt::on_regions_set()
 
   // Set the regions when the option is set
   get_child("SetForce")->options().set("regions", std::vector<common::URI>({regions[0]}));
+  get_child("SetCt")->options().set("regions", std::vector<common::URI>({regions[0]}));
+  get_child("SetuDisk")->options().set("regions", std::vector<common::URI>({regions[0]}));
 }
 
 void ActuatorDiskCt::trigger_setup()
@@ -118,6 +124,23 @@ void ActuatorDiskCt::trigger_setup()
     (
       f[0] = lit(m_f)
      )
+  ));
+  Handle<ProtoAction> set_ct(get_child("SetCt"));
+  Handle<ProtoAction> set_uDisk(get_child("SetuDisk"));
+
+  set_ct->set_expression(nodes_expression
+  (
+    group
+    (
+      Ct = lit(m_ct)
+    )
+  ));
+  set_uDisk->set_expression(nodes_expression
+  (
+    group
+    (
+      uMean = lit(m_u_mean_disk)
+    )
   ));
 }
 
