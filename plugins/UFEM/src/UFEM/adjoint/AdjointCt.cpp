@@ -193,7 +193,7 @@ void AdjointCt::trigger_assembly()
 
                             element_quadrature
                             (
-                                _A(U[_i], U[_i]) += transpose(N(U)) * N(U) * lit(m_ct[Nt]) * u[0] / lit(m_th) * normal[_i] * density_ratio,
+                                _A(U[_i], U[_i]) += transpose(N(U)) * N(U) * lit(m_ct[Nt]) * u[0] / lit(m_th) * normal[_i] * density_ratio
                                 // _a[U[_i]] += transpose(N(U)) * lit(3.0) / lit(2.0) * lit(m_ct[Nt]) * u[0] * u[0] * normal[_i] * density_ratio
                             //   _A(U[_i], U[_i]) += transpose(N(U))*N(U)*u[_i]* lit(4) * lit(m_a[Nt])/(lit(1)-lit(m_a[Nt]))/ lit(m_th)*density_ratio * normal[_i],
                             //   _a[U[_i]] += transpose(N(U)) * lit(6.0) * u[0] * u[0] * lit(m_a[Nt])/(1 - lit(m_a[Nt])) * normal[_i] * density_ratio
