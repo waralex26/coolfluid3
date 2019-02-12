@@ -172,7 +172,7 @@ void AdjointCt::trigger_assembly()
                                       //+ 0.5*u[_i]*(N(U) - tau_su*u*nabla(U)) * nabla(U)[_j], //  skew symmetric part of advection (standard +SUPG)
                   _T(q    , U[_i]) += tau_ps * transpose(nabla(q)[_i]) * N(U), // Time, PSPG
                   _T(U[_i], U[_i]) += transpose(N(U) - tau_su*u*nabla(U)) * N(U), // Time, standard and SUPG
-                  _a[U[_i]] += /* -transpose(N(U) - tau_su*u*nabla(U)) * 3 * g[_i] * density_ratio */ + 
+                  _a[U[_i]] +=  -transpose(N(U) - tau_su*u*nabla(U)) * 3 * g[_i] * density_ratio  + 
                             m_turbulence*(-(transpose(N(U) - tau_su*u*nabla(U))*ka*gradient(k)[_i]) - (transpose(N(U) - tau_su*u*nabla(U))*epsilona*gradient(epsilon)[_i])
                                             +(2*((ka*k/epsilon)+(epsilona*m_c_epsilon_1))*k*m_c_mu* transpose(nabla(U)) *_col(partial(u[_i],_j)+partial(u[_j],_i),_i)))
           ),
@@ -193,8 +193,8 @@ void AdjointCt::trigger_assembly()
 
                             element_quadrature
                             (
-                                _A(U[_i], U[_i]) += transpose(N(U)) * N(U) * lit(m_ct[Nt]) * u[0] / lit(m_th) * normal[_i]/_norm(normal) * density_ratio,
-                                _a[U[_i]] += transpose(N(U)) * lit(3.0) / lit(2.0) * lit(m_ct[Nt]) * u[0] * u[0] * normal[_i]/_norm(normal) * density_ratio
+                                _A(U[_i], U[_i]) += transpose(N(U)) * N(U) * lit(m_ct[Nt]) * u[0] / lit(m_th) * normal[_i] * density_ratio,
+                                // _a[U[_i]] += transpose(N(U)) * lit(3.0) / lit(2.0) * lit(m_ct[Nt]) * u[0] * u[0] * normal[_i] * density_ratio
                             //   _A(U[_i], U[_i]) += transpose(N(U))*N(U)*u[_i]* lit(4) * lit(m_a[Nt])/(lit(1)-lit(m_a[Nt]))/ lit(m_th)*density_ratio * normal[_i],
                             //   _a[U[_i]] += transpose(N(U)) * lit(6.0) * u[0] * u[0] * lit(m_a[Nt])/(1 - lit(m_a[Nt])) * normal[_i] * density_ratio
                               //_a[U[_i]] += transpose(N(U)) * -3 * g[_i] * normal[_i] * density_ratio
