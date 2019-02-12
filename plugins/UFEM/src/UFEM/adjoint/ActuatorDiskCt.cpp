@@ -139,7 +139,7 @@ void ActuatorDiskCt::trigger_setup()
   (
     group
     (
-      uMean = lit(m_u_mean_disk)
+      uDisk = lit(m_u_mean_disk)
     )
   ));
 }
