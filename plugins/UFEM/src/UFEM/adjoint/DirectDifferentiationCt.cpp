@@ -162,7 +162,7 @@ void DirectDifferentiationCt::trigger_assembly()
             _A(SensU[_i], SensU[_i]) += nu_eff * transpose(nabla(SensU)) * nabla(SensU) + transpose(N(u) + tau_su*u*nabla(SensU)) * u*nabla(SensU), // Diffusion + advection
             _A(SensU[_i], SensP)     += transpose(N(SensU) + tau_su*u*nabla(SensU)) * nabla(SensP)[_i], // Pressure gradient (standard and SUPG)
             _A(SensU[_i], SensU[_j]) += transpose(tau_bulk*nabla(SensU)[_i])*nabla(SensU)[_j] + transpose(N(SensU) + tau_su*u*nabla(SensU))*N(SensU)*_row(nabla(u)*nodal_values(u), _j)[_i],// + partial(u[_i],_j), // *(nabla(u)*partial(u[_i],_j)*transpose(nabla(u))),
-            _a[SensU[_i]] += transpose(N(SensU) + tau_su*u*nabla(SensU)) * g[_i] /* * normal[_i] */ * density_ratio /lit(m_ct[Nt]),
+            // _a[SensU[_i]] += transpose(N(SensU) + tau_su*u*nabla(SensU)) * g[_i] /* * normal[_i] */ * density_ratio /lit(m_ct[Nt]),
 
             _T(SensP    , SensU[_i]) += tau_ps * transpose(nabla(SensP)[_i]) * N(SensU), // Time, PSPG
             _T(SensU[_i], SensU[_i]) += transpose(N(SensU) + tau_su*u*nabla(SensU)) * N(SensU)
@@ -187,7 +187,7 @@ void DirectDifferentiationCt::trigger_assembly()
         //compute_tau.apply(u, nu_eff, lit(dt()), lit(tau_ps), lit(tau_su), lit(tau_bulk)),
         element_quadrature
         (
-           // _a[SensU[_i]] += - transpose(N(SensU)) * normal[_i] * lit(0.5) * u[0] * u[0] / lit(m_th) * density_ratio
+           _a[SensU[_i]] += - transpose(N(SensU)) * normal[_i] * lit(0.5) * u[0] * u[0] /* / lit(m_th) */ * density_ratio
         ),
         // element_quadrature(_A(SensU[_i], SensU[_i]) += transpose(N(SensU))*N(SensU)*u[_i]* lit(4) * lit(m_a[Nt])/(lit(1)-lit(m_a[Nt]))/ lit(m_th)*density_ratio * normal[_i]), // integrate
         system_rhs += _a
