@@ -85,6 +85,11 @@ private:
   FieldVariable<4, VectorField> SensU;
   // Sensitivity derivative van de druk
   FieldVariable<5, ScalarField> SensP;
+  // Thrust coefficient
+  FieldVariable<6, ScalarField> Ct;
+  // Mean velocity on the disk
+  FieldVariable<7, ScalarField> uDisk;
+
 
   /// Access to the physics
   PhysicsConstant rho;

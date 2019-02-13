@@ -56,7 +56,9 @@ DirectDifferentiationCt::DirectDifferentiationCt(const std::string& name) :
   density_ratio("density_ratio", "density_ratio"),
   g("Force", "body_force"),
   rho("density"),
-  nu("kinematic_viscosity")
+  nu("kinematic_viscosity"),
+  Ct("ThrustCoefficient", "actuator_disk"),
+  uDisk("MeanDiskSpeed", "actuator_disk")
   // J("sensitivity","sensitivity_derivative")
 {
   const std::vector<std::string> restart_field_tags = boost::assign::list_of("navier_stokes_solution")("adjoint_solution")("adj_linearized_velocity")("navier_stokes_viscosity")("sensitivity_solution");
