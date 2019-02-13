@@ -96,7 +96,7 @@ private:
   /// turbulent kinetic energy
   FieldVariable<9, ScalarField> k;
   // thrust coefficient
-  FieldVariable<10, ScalaRField> Ct;
+  FieldVariable<10, ScalarField> Ct;
   // Mean disk velocity
   FieldVariable<11, ScalarField> uDisk;
 

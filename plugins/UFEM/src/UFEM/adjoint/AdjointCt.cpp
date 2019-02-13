@@ -60,7 +60,7 @@ AdjointCt::AdjointCt(const std::string& name) :
   g("Force", "body_force"),
   rho("density"),
   nu("kinematic_viscosity"),
-  Ct("thrustCoefficient, actuator_disk"),
+  Ct("thrustCoefficient", "actuator_disk"),
   uDisk("MeanDiskSpeed", "actuator_disk")
 {
   const std::vector<std::string> restart_field_tags = boost::assign::list_of("navier_stokes_solution")("adjoint_solution")("adj_linearized_velocity")("navier_stokes_viscosity");
