@@ -168,8 +168,7 @@ void AdjointCt::trigger_assembly()
           (
                   _A(q    , U[_i]) += transpose(N(q) /*- tau_ps*u*nabla(q)*0.5*/) * nabla(U)[_i] - tau_ps * transpose(nabla(q)[_i]) * u*nabla(U), // Standard continuity + PSPG for advection
                   _A(q    , q)     += tau_ps * transpose(nabla(q)) * nabla(q), // Continuity, PSPG
-                  _A(U[_i], U[_i]) += nu_eff * transpose(nabla(U)) * nabla(U) - transpose(N(u) - tau_su*u*nabla(U)) * u*nabla(U) +   // Diffusion + advection
-                            transpose(N(U) - tau_su*nabla(U)) * N(U) * Ct * uDisk / lit(m_th), // Actutor disk contribution
+                  _A(U[_i], U[_i]) += nu_eff * transpose(nabla(U)) * nabla(U) - transpose(N(u) - tau_su*u*nabla(U)) * u*nabla(U), // Diffusion + advection
                   _A(U[_i], q)     += transpose(N(U) - tau_su*u*nabla(U)) * nabla(q)[_i], // Pressure gradient (standard and SUPG)
                   _A(U[_i], U[_j]) += transpose(tau_bulk*nabla(U)[_i]) * nabla(U)[_j]-transpose(N(U) - tau_su*u*nabla(U)) * u[_j] * nabla(U)[_i], // Bulk viscosity + additional adjoint advection term
                                       //+ 0.5*u[_i]*(N(U) - tau_su*u*nabla(U)) * nabla(U)[_j], //  skew symmetric part of advection (standard +SUPG)
@@ -177,8 +176,8 @@ void AdjointCt::trigger_assembly()
                   _T(U[_i], U[_i]) += transpose(N(U) - tau_su*u*nabla(U)) * N(U), // Time, standard and SUPG
                   _a[U[_i]] += -transpose(N(U) - tau_su*u*nabla(U)) * 3 * g[_i] * density_ratio + 
                             m_turbulence*(-(transpose(N(U) - tau_su*u*nabla(U))*ka*gradient(k)[_i]) - (transpose(N(U) - tau_su*u*nabla(U))*epsilona*gradient(epsilon)[_i])
-                                            +(2*((ka*k/epsilon)+(epsilona*m_c_epsilon_1))*k*m_c_mu* transpose(nabla(U)) *_col(partial(u[_i],_j)+partial(u[_j],_i),_i)))
-                  //_A(U[_i], U[_i]) += transpose(N(U) - tau_su*nabla(U)) * N(U) * Ct * uDisk / lit(m_th)
+                                            +(2*((ka*k/epsilon)+(epsilona*m_c_epsilon_1))*k*m_c_mu* transpose(nabla(U)) *_col(partial(u[_i],_j)+partial(u[_j],_i),_i))),
+                  _A(U[_i], U[_i]) += transpose(N(U) - tau_su*nabla(U)) * N(U) * normal * Ct * uDisk / lit(m_th)
           ),
         system_rhs += -_A * _x + _a,
         _A(q) = _A(q) / theta,
