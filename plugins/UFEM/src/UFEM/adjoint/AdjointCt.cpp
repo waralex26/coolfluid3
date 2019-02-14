@@ -174,7 +174,7 @@ void AdjointCt::trigger_assembly()
                                       //+ 0.5*u[_i]*(N(U) - tau_su*u*nabla(U)) * nabla(U)[_j], //  skew symmetric part of advection (standard +SUPG)
                   _T(q    , U[_i]) += tau_ps * transpose(nabla(q)[_i]) * N(U), // Time, PSPG
                   _T(U[_i], U[_i]) += transpose(N(U) - tau_su*u*nabla(U)) * N(U), // Time, standard and SUPG
-                  _a[U[_i]] += /* transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) / lit(2.0) * Ct * uDisk[_i] * uDisk[_i] / lit(m_th) + */ -transpose(N(U) - tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio + 
+                  _a[U[_i]] +=  transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) / lit(2.0) * lit(0.7) * uDisk[_i] * uDisk[_i] / lit(m_th) +  /* -transpose(N(U) - tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio + */
                             m_turbulence*(-(transpose(N(U) - tau_su*u*nabla(U))*ka*gradient(k)[_i]) - (transpose(N(U) - tau_su*u*nabla(U))*epsilona*gradient(epsilon)[_i])
                                             +(2*((ka*k/epsilon)+(epsilona*m_c_epsilon_1))*k*m_c_mu* transpose(nabla(U)) *_col(partial(u[_i],_j)+partial(u[_j],_i),_i)))
                   // _A(U[_i], U[_i]) += transpose(N(U) - tau_su*nabla(U))[_i] * N(U)[_i] * Ct * uDisk / lit(m_th)
