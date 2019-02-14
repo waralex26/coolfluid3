@@ -98,7 +98,7 @@ private:
   // thrust coefficient
   FieldVariable<10, ScalarField> Ct;
   // Mean disk velocity
-  FieldVariable<11, ScalarField> uDisk;
+  FieldVariable<11, VectorField> uDisk;
 
   /// Access to the physics
   PhysicsConstant rho;
