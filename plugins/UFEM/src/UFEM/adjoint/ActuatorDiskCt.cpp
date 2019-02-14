@@ -56,9 +56,7 @@ ActuatorDiskCt::ActuatorDiskCt(const std::string& name) :
   rhs(options().add("lss", Handle<math::LSS::System>())
     .pretty_name("LSS")
     .description("The linear system for which the boundary condition is applied")),
-  system_matrix(options().option("lss")),
-  Ct("ThrustCoefficient", "actuator_disk"),
-  uDisk("MeanDiskSpeed", "actuator_disk")
+  system_matrix(options().option("lss"))
 {
   options().add("u_in", m_u_in)
     .pretty_name("Velocityin")
@@ -118,6 +116,8 @@ void ActuatorDiskCt::trigger_setup()
 
   FieldVariable<0, VectorField> f("Force", "body_force");
   FieldVariable<1, VectorField> u("Velocity", "navier_stokes_solution");
+  FieldVariable<2, ScalarField> Ct("ThrustCoefficient", "actuator_disk");
+  FieldVariable<3, VectorField> uDisk("MeanDiskSpeed", "actuator_disk");
   set_force->set_expression(nodes_expression
   (
     group
