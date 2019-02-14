@@ -196,8 +196,8 @@ void AdjointCt::trigger_assembly()
 
                             element_quadrature
                             (
-                                _A(U[_i], U[_i]) += transpose(N(U)) * N(U) * Ct * uDisk  /* / lit(m_th) */  * normal[_i],
-                                _a[U[_i]] += transpose(N(U)) * lit(3.0) / lit(2.0) * Ct * uDisk * uDisk * normal[_i]
+                                _A(U[_i], U[_i]) += transpose(N(U)) * N(U) * Ct * uDisk  /* / lit(m_th) */  * normal[_i]
+                                // _a[U[_i]] += transpose(N(U)) * lit(3.0) / lit(2.0) * Ct * uDisk * uDisk * normal[_i]
                             ), // integrate
                             system_rhs +=-_A * _x + _a, // update global system RHS with element vector
 													  system_matrix += theta * _A
