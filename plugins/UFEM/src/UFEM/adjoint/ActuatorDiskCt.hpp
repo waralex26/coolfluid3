@@ -50,7 +50,7 @@ private:
   Real m_u_mean_disk = 0.;
 
   FieldVariable<0, ScalarField> Ct;
-  FieldVariable<1, ScalarField> uDisk;
+  FieldVariable<1, VectorField> uDisk;
 
   cf3::solver::actions::Proto::SystemRHS rhs;
   cf3::solver::actions::Proto::SystemMatrix system_matrix;
