@@ -176,8 +176,8 @@ void AdjointCt::trigger_assembly()
                   _T(U[_i], U[_i]) += transpose(N(U) - tau_su*u*nabla(U)) * N(U), // Time, standard and SUPG
                   _a[U[_i]] += /* transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) / lit(2.0) * Ct * uDisk[_i] * uDisk[_i] / lit(m_th) +  /* -transpose(N(U) - tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio + */
                             m_turbulence*(-(transpose(N(U) - tau_su*u*nabla(U))*ka*gradient(k)[_i]) - (transpose(N(U) - tau_su*u*nabla(U))*epsilona*gradient(epsilon)[_i])
-                                            +(2*((ka*k/epsilon)+(epsilona*m_c_epsilon_1))*k*m_c_mu* transpose(nabla(U)) *_col(partial(u[_i],_j)+partial(u[_j],_i),_i))),
-                  _A(U[_i], U[_i]) += transpose(N(U) - tau_su*nabla(U))[_i] * N(U)[_i] * Ct * uDisk[_i] / lit(m_th)
+                                            +(2*((ka*k/epsilon)+(epsilona*m_c_epsilon_1))*k*m_c_mu* transpose(nabla(U)) *_col(partial(u[_i],_j)+partial(u[_j],_i),_i)))
+                  //_A(U[_i], U[_i]) += transpose(N(U) - tau_su*nabla(U))[_i] * N(U)[_i] * Ct * uDisk[_i] / lit(m_th)
           ),
         system_rhs += -_A * _x + _a,
         _A(q) = _A(q) / theta, 
