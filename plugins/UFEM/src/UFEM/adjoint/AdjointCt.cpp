@@ -176,8 +176,8 @@ void AdjointCt::trigger_assembly()
                   _T(U[_i], U[_i]) += transpose(N(U) - tau_su*u*nabla(U)) * N(U), // Time, standard and SUPG
                   _a[U[_i]] += // transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) / lit(2.0) * lit(m_ct[0]) * uDisk[_i] * uDisk[_i] / lit(m_th) * density_ratio /* -transpose(N(U) - tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio + */
                             // - transpose(N(U) -tau_su*u*nabla(U)) * lit(m_U_mean_disk) * lit(m_ct[0]) * uDisk[0] / lit(m_th) * density_ratio 
-                            transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio 
-                            -transpose(N(U) -tau_su*u*nabla(U)) * lit(2.0) * lit(m_U_mean_disk) * g[_i] / lit(12.9955) * density_ratio
+                            // transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio 
+                            // -transpose(N(U) -tau_su*u*nabla(U)) * lit(2.0) * lit(m_U_mean_disk) * g[_i] / lit(12.9955) * density_ratio
                             + m_turbulence*(-(transpose(N(U) - tau_su*u*nabla(U))*ka*gradient(k)[_i]) - (transpose(N(U) - tau_su*u*nabla(U))*epsilona*gradient(epsilon)[_i])
                                             +(2*((ka*k/epsilon)+(epsilona*m_c_epsilon_1))*k*m_c_mu* transpose(nabla(U)) *_col(partial(u[_i],_j)+partial(u[_j],_i),_i)))
                   //_A(U[_i], U[_i]) += transpose(N(U) - tau_su*nabla(U))[_i] * N(U)[_i] * Ct * uDisk[_i] / lit(m_th)
@@ -200,8 +200,8 @@ void AdjointCt::trigger_assembly()
                             element_quadrature
                             (
                                 //_A(U[_i], U[_i]) += transpose(N(U)) * N(U) * Ct * uDisk[0]  /* / lit(m_th) */  * normal[_i],
-                                // _a[U[_i]] += -transpose(N(U)) * lit(m_U_mean_disk) * Ct * uDisk[0] * normal[_i],
-                                // _a[U[_i]] += transpose(N(U)) * lit(3.0) / lit(2.0) * Ct * uDisk[0] * uDisk[0] * normal[_i]
+                                _a[U[_i]] += -transpose(N(U)) * lit(m_U_mean_disk) * Ct * uDisk[0] * normal[_i],
+                                _a[U[_i]] += transpose(N(U)) * lit(3.0) / lit(2.0) * Ct * uDisk[0] * uDisk[0] * normal[_i]
                             ), // integrate
                             system_rhs +=-_A * _x + _a, // update global system RHS with element vector
 													  system_matrix += theta * _A
