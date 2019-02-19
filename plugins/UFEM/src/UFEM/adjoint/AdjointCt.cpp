@@ -213,7 +213,7 @@ void AdjointCt::trigger_assembly()
   }
 
 
-    Uint Nt = 0.;
+  Nt = 0.;
   for(auto&& region : m_actuator_regions)
   {
     // CFinfo << "Test assembly" << CFendl;
