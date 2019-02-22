@@ -177,7 +177,7 @@ void AdjointCt::trigger_assembly()
                   _a[U[_i]] += // transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) / lit(2.0) * Ct * uDisk[_i] * uDisk[_i] / lit(m_th) * density_ratio 
                           // -transpose(N(U) - tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio + 
                            // - transpose(N(U) -tau_su*u*nabla(U)) * lit(m_U_mean_disk) * Ct * uDisk[0] / lit(m_th) * density_ratio 
-                            transpose(N(U)) * Ct
+                            transpose(N(U)) *Ct/0.7
                             // transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio 
                             // -transpose(N(U) -tau_su*u*nabla(U)) * lit(2.0) * lit(m_U_mean_disk) * g[_i] / lit(12.9955) * density_ratio
                             + m_turbulence*(-(transpose(N(U) - tau_su*u*nabla(U))*ka*gradient(k)[_i]) - (transpose(N(U) - tau_su*u*nabla(U))*epsilona*gradient(epsilon)[_i])
