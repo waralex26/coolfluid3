@@ -186,8 +186,8 @@ void AdjointCt::trigger_assembly()
           ),
         system_rhs += -_A * _x + _a,
         _A(q) = _A(q) / theta, 
-        system_matrix += invdt() * _T + theta * _A,
-        //_cout << transpose(_a) << "\n"
+        system_matrix += invdt() * _T + theta * _A
+        //, _cout << transpose(_a) << "\n"
       )
     )
   ));
