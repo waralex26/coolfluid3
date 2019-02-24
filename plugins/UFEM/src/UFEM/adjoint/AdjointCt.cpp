@@ -223,8 +223,8 @@ void AdjointCt::trigger_assembly()
   m_update->add_component(create_proto_action("Update", nodes_expression(group
   (
     U += solution(U),
-    U = _min( m_U_max, U),
-    U = _max(-m_U_max, U),
+    U = _min( m_U_max, U[_i]),
+    U = _max(-m_U_max, U[_i]),
     q += solution(q)
   ))));
 
