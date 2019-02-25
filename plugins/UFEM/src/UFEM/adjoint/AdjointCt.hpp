@@ -100,7 +100,7 @@ private:
   // Mean disk velocity
   FieldVariable<11, VectorField> uDisk;
   // Adjoint force field
-  FieldVariabel<12, VectorField> F;
+  FieldVariable<12, VectorField> F;
 
   /// Access to the physics
   PhysicsConstant rho;
