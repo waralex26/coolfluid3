@@ -109,7 +109,7 @@ void ActuatorDiskCtAdjoint::trigger_setup()
   FieldVariable<1, VectorField> U("AdjVelocity", "adjoint_solution");
   FieldVariable<2, ScalarField> Ct("ThrustCoefficient", "actuator_disk");
   FieldVariable<3, VectorField> uDisk("MeanDiskSpeed", "actuator_disk");
-  FieldVariabel<4, VectorField> UDisk("MeanAdjDiskSpeed","adj_actuator_disk");
+  FieldVariable<4, VectorField> UDisk("MeanAdjDiskSpeed","adj_actuator_disk");
 
   Handle<ProtoAction> set_UDisk(get_child("SetUDisk"));
 
