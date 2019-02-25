@@ -99,6 +99,8 @@ private:
   FieldVariable<10, ScalarField> Ct;
   // Mean disk velocity
   FieldVariable<11, VectorField> uDisk;
+  // Adjoint force field
+  FieldVariabel<12, VectorField> F;
 
   /// Access to the physics
   PhysicsConstant rho;
@@ -116,7 +118,7 @@ private:
   Real m_turbulence = 0.;
   Real m_c_epsilon_1 = 1.44;
   Real m_c_mu = 0.09;
-  std::vector<Real> m_U_max;
+  Real m_U_max;
 
   bool m_first_call = true;
 

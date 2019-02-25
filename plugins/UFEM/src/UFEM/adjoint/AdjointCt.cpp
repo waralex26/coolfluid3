@@ -60,6 +60,7 @@ AdjointCt::AdjointCt(const std::string& name) :
   g("Force", "body_force"),
   Ct("ThrustCoefficient", "actuator_disk"),
   uDisk("MeanDiskSpeed", "actuator_disk"),
+  F("AdjForce", "adjoint_body_force"),
   rho("density"),
   nu("kinematic_viscosity")
 {
@@ -179,9 +180,10 @@ void AdjointCt::trigger_assembly()
                                       //+ 0.5*u[_i]*(N(U) - tau_su*u*nabla(U)) * nabla(U)[_j], //  skew symmetric part of advection (standard +SUPG)
                   _T(q    , U[_i]) += tau_ps * transpose(nabla(q)[_i]) * N(U), // Time, PSPG
                   _T(U[_i], U[_i]) += transpose(N(U) - tau_su*u*nabla(U)) * N(U), // Time, standard and SUPG
-                  _a[U[_i]] += // transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) / lit(2.0) * Ct * uDisk[_i] * uDisk[_i] / lit(m_th) * density_ratio 
-                          -transpose(N(U) - tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio + 
-                           - transpose(N(U) -tau_su*u*nabla(U)) * lit(m_U_mean_disk) * Ct * uDisk[0] / lit(m_th) * density_ratio 
+                  _a[U[_i]] += transpose(N(U) - tau_su*u*nabla(U)) * F[_i]
+                          // transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) / lit(2.0) * Ct * uDisk[_i] * uDisk[_i] / lit(m_th) * density_ratio 
+                          // -transpose(N(U) - tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio + 
+                           // - transpose(N(U) -tau_su*u*nabla(U)) * lit(m_U_mean_disk) * Ct * uDisk[0] / lit(m_th) * density_ratio 
                             //transpose(N(U)) 
                             // transpose(N(U) -tau_su*u*nabla(U)) * lit(3.0) * g[_i] * density_ratio 
                             // -transpose(N(U) -tau_su*u*nabla(U)) * lit(2.0) * lit(m_U_mean_disk) * g[_i] / lit(12.9955) * density_ratio
@@ -223,8 +225,8 @@ void AdjointCt::trigger_assembly()
   m_update->add_component(create_proto_action("Update", nodes_expression(group
   (
     U += solution(U),
-    U = _min( m_U_max[0], U[0]),
-    U = _max(-m_U_max[0], U[0]),
+    // U = _min( m_U_max[0], U[0]),
+    // U = _max(-m_U_max[0], U[0]),
     q += solution(q)
   ))));
 
