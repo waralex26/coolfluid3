@@ -59,7 +59,7 @@ DirectDifferentiationCt::DirectDifferentiationCt(const std::string& name) :
   nu("kinematic_viscosity"),
   Ct("ThrustCoefficient", "actuator_disk"),
   uDisk("MeanDiskSpeed", "actuator_disk"),
-  SensF("SensForce", "dirdiff_body_force")
+  SensF("SensForce", "sensitivity_body_force")
   // J("sensitivity","sensitivity_derivative")
 {
   const std::vector<std::string> restart_field_tags = boost::assign::list_of("navier_stokes_solution")("adjoint_solution")("adj_linearized_velocity")("navier_stokes_viscosity")("sensitivity_solution");
