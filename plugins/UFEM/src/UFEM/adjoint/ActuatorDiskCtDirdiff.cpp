@@ -144,7 +144,7 @@ void ActuatorDiskCtDirdiff::execute()
   // CFinfo << std::setprecision(20) <<"force set to " << m_f << ", a: " << m_a << "m_U_mean_disk :" << m_U_mean_disk <<  " pow2 " << m_u_mean_disk2 << " pow3 " << m_u_mean_disk3 << CFendl;
   options().set("result", m_SensU_mean_disk);
   Handle<ProtoAction> set_SensUDisk(get_child("SetSensUDisk"));
-  Handle<ProtoAction> set_adj_force(get_child("SetDirdiffForce"));
+  Handle<ProtoAction> set_dirdiff_force(get_child("SetDirdiffForce"));
   set_dirdiff_force->execute();
   set_SensUDisk->execute();
 
