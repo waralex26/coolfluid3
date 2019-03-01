@@ -101,8 +101,6 @@ private:
   FieldVariable<11, VectorField> uDisk;
   // Adjoint force field
   FieldVariable<12, VectorField> F;
-  // Maximum adjoint velocity
-  FieldVariable<13, VectorField> maxSpeed;
 
   /// Access to the physics
   PhysicsConstant rho;
@@ -120,7 +118,7 @@ private:
   Real m_turbulence = 0.;
   Real m_c_epsilon_1 = 1.44;
   Real m_c_mu = 0.09;
-  Real m_U_max;
+  Real m_U_max = 1e4; 
 
   bool m_first_call = true;
 
