@@ -136,7 +136,7 @@ void ActuatorDiskCtDirdiff::execute()
   FieldVariable<0, VectorField> SensU("SensU", "sensitivity_solution");
   m_SensU_mean_disk = 0;
 
-  surface_integral(m_SensU_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[1]}), _abs((SensU*normal)[0]));
+  surface_integral(m_SensU_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[1]}), ((SensU*normal)[0]));
 
   m_SensU_mean_disk /= m_area;
 
