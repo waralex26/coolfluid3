@@ -62,7 +62,8 @@ AdjointCt::AdjointCt(const std::string& name) :
   uDisk("MeanDiskSpeed", "actuator_disk"),
   F("AdjForce", "adjoint_body_force"),
   rho("density"),
-  nu("kinematic_viscosity")
+  nu("kinematic_viscosity"),
+  maxSpeed("maxAdjVelocity","adjoint_solution")
 {
   const std::vector<std::string> restart_field_tags = boost::assign::list_of("navier_stokes_solution")("adjoint_solution")("adj_linearized_velocity")("navier_stokes_viscosity");
   properties().add("restart_field_tags", restart_field_tags);
@@ -225,8 +226,8 @@ void AdjointCt::trigger_assembly()
   m_update->add_component(create_proto_action("Update", nodes_expression(group
   (
     U += solution(U),
-    U = _min(lit(m_U_max), U[0]),
-    // U = _max(-m_U_max[0], U[0]),
+    U = _min(maxSpeed[0], U[0]),
+    // U = _max(-m_U_max, U[0]),
     q += solution(q)
   ))));
 

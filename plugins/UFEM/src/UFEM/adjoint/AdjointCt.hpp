@@ -101,6 +101,8 @@ private:
   FieldVariable<11, VectorField> uDisk;
   // Adjoint force field
   FieldVariable<12, VectorField> F;
+  // Maximum adjoint velocity
+  FieldVariable<13, VectorField> maxSpeed;
 
   /// Access to the physics
   PhysicsConstant rho;
