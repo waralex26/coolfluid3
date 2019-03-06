@@ -155,11 +155,10 @@ void ActuatorDiskCt::execute()
   const auto pow3 = make_lambda([](Real x ){
 	  return x*x*x;
   });
-  
+
   // surface_integral(m_u_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[1]}), _abs((u*normal)[0]));
   // m_u_mean_disk /= m_area;
-  auto regions = options()["regions"].value<std::vector<common::URI>>();
-  volume_integral(m_u_mean_disk, m_loop_regions, u[0]);
+  volume_integral(m_u_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[0]}), (u*normal)[0]);
   m_u_mean_disk /= (m_area * m_th);
 
 
