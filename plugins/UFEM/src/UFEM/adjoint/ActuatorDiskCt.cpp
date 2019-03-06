@@ -148,6 +148,7 @@ void ActuatorDiskCt::trigger_setup()
 void ActuatorDiskCt::execute()
 {
   FieldVariable<0, VectorField> u("Velocity", "navier_stokes_solution");
+  FieldVariable<1, ScalarField> Ct("ThrustCoefficient", "actuator_disk");
   m_u_mean_disk = 0;
   const auto pow2 = make_lambda([](Real x ){
 	  return x*x;
@@ -158,7 +159,7 @@ void ActuatorDiskCt::execute()
 
   // surface_integral(m_u_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[1]}), _abs((u*normal)[0]));
   // m_u_mean_disk /= m_area;
-  volume_integral(m_u_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[0]}), u[0]);
+  volume_integral(m_u_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[0]}), Ct);
   // volume_integral(m_u_mean_disk, std::vector<Handle<mesh::Region>>({m_loop_regions[0]}), lit(1.0));
   // m_u_mean_disk /= (m_area * m_th);
 
